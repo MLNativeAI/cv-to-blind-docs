@@ -1,0 +1,36 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+import type { DocPost } from "../../lib/contentful";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<DocPost>({
+    content_type: "knowledgeBase",
+  });
+
+  const pages = entries.items.map((item) => ({
+    params: { slug: item.fields.title },
+    props: {
+      title: item.fields.title,
+      category: item.fields.category,
+      description: item.fields.description,
+      content: documentToHtmlString(item.fields.content),
+      tags: item.fields.tags,
+    },
+  }));
+  return pages;
+}
+const { content, title, date } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <title>{title}</title>
+  </head>
+  <body>
+    <h1>{title}</h1>
+    <time>{date}</time>
+    <article set:html={content} />
+  </body>
+</html>
+

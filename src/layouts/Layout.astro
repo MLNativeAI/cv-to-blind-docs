@@ -1,0 +1,53 @@
+---
+
+import { DocPost, contentfulClient } from "../lib/contentful";
+
+const entries = await contentfulClient.getEntries<DocPost>({
+  content_type: "knowledgeBase",
+});
+
+const posts = entries.items.map((item) => {
+    const { title, slug, category, description, content, tags } = item.fields;
+    return {
+      title,
+      slug,
+      category, description, content, tags
+
+    };
+  });
+
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | CvToBlind</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <div class="bg-white w-64 p-4 space-y-4">
+        <h1 class="font-bold text-xl">Docs Menu</h1>
+        <nav>
+            <ul class="space-y-2">
+              {posts.map((post) => (
+                <li>
+                  <a href={`/doc/${post.slug}/`}>
+                    <h2>{post.title}</h2>
+                  </a>
+                </li>
+              ))}
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 p-10">
+        <h2 class="font-bold text-2xl mb-6">Documentation Title</h2>
+        <p class="mb-4">This is the content area. Add your documentation content here. You can use HTML and Tailwind CSS to style your content.</p>
+        <article>
+          <slot /> <!-- your content is injected here -->
+        </article>
+    </div>
+</body>
+</html>

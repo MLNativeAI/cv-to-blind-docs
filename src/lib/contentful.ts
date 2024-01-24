@@ -4,6 +4,7 @@ export interface DocPost {
   contentTypeId: "knowledgeBase";
   fields: {
     title: EntryFieldTypes.Text;
+    slug: EntryFieldTypes.Text;
     category: EntryFieldTypes.Text;
     description: EntryFieldTypes.Text;
     content: EntryFieldTypes.RichText;

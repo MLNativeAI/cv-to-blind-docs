@@ -23,8 +23,6 @@ const options = {
     content_type: "knowledgeBase",
   });
 
-  entries.items.map(item => console.log(item.fields.content))
-
   const pages = entries.items.map((item) => ({
     params: { slug: item.fields.slug },
     props: {

@@ -1,50 +1,81 @@
 ---
-import "../global.css"
+import "../global.css";
 import { contentfulClient, type DocPost } from "../lib/contentful";
+import { Image } from "astro:assets";
+
+import logoImage from "../img/CV2B_logotype.svg";
 
 const entries = await contentfulClient.getEntries<DocPost>({
   content_type: "knowledgeBase",
 });
 
 const posts = entries.items.map((item) => {
-    const { title, slug, category, description, content, tags } = item.fields;
-    return {
-      title,
-      slug,
-      category, description, content, tags
-    };
-  });
-
+  const { title, slug, category, description, content, tags } = item.fields;
+  return {
+    title,
+    slug,
+    category,
+    description,
+    content,
+    tags,
+  };
+});
 ---
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation | CvToBlind</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body class="flex h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <div class="bg-white w-64 p-4 space-y-4">
-        <h1 class="font-bold text-xl">Navigation</h1>
-        <nav>
-            <ul class="space-y-2">
-              {posts.map((post) => (
-                <li>
-                  <a href={`/doc/${post.slug}/`}>
-                    <h2>{post.title}</h2>
-                  </a>
-                </li>
-              ))}
-            </ul>
-        </nav>
-    </div>
 
-    <!-- Content -->
-    <div class="flex-1 p-10">
-        <article>
-          <slot /> <!-- your content is injected here -->
-        </article>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation | CvToBlind</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex flex-col items-center h-screen w-full">
+    <div class="max-w-7xl w-full">
+      <header
+        class="z-50 flex flex-wrap border-b border-black py-3 sm:flex-nowrap sm:justify-start sm:py-0 h-10"
+      >
+        <a class="flex-none text-xl font-semibold" href="/" aria-label="Brand">
+          <div class="flex space-x-4">
+            <Image
+              src={logoImage}
+              width={150}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div class="badge badge-accent mt-1">Beta</div>
+          </div>
+        </a>
+      </header>
+      <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div class="bg-white w-64 p-4 space-y-4">
+          <h1 class="font-bold text-xl">Navigation</h1>
+          <nav>
+            <ul class="space-y-2">
+              {
+                posts.map((post) => (
+                  <li>
+                    <a href={`/doc/${post.slug}/`}>
+                      <h2>{post.title}</h2>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-10">
+          <article>
+            <slot />
+            <!-- your content is injected here -->
+          </article>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

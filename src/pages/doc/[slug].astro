@@ -1,13 +1,29 @@
 ---
 import { contentfulClient } from "../../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+
 import Layout from "../../layouts/Layout.astro";
 import type { DocPost } from "../../lib/contentful";
 
+
 export async function getStaticPaths() {
+
+const options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node: any, next: any) =>
+      `<p className="px-8">${next(node.content)}</p>`,
+      [BLOCKS.EMBEDDED_ASSET]: (node: any, next: any) =>
+      `<Image width="100" height="200" src="${node.data.target.fields.file.url}" alt="A description of my image." />`
+  },
+};
+
+
   const entries = await contentfulClient.getEntries<DocPost>({
     content_type: "knowledgeBase",
   });
+
+  entries.items.map(item => console.log(item.fields.content))
 
   const pages = entries.items.map((item) => ({
     params: { slug: item.fields.slug },
@@ -16,14 +32,18 @@ export async function getStaticPaths() {
       slug: item.fields.slug,
       category: item.fields.category,
       description: item.fields.description,
-      content: documentToHtmlString(item.fields.content),
+      content: documentToHtmlString(item.fields.content, options),
       tags: item.fields.tags,
     },
   }));
   return pages;
 }
-const { content, title, date } = Astro.props;
+const { content, title } = Astro.props;
 ---
 <Layout>
-  <article set:html={content} />
+  <div class="space-y-4">
+    <h1 class="text-2xl">{title}</h1>
+    <article set:html={content} />
+  </div>
+  
 </Layout>

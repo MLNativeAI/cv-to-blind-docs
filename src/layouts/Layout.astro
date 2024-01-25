@@ -3,7 +3,7 @@ import "../global.css";
 import { contentfulClient, type DocPost } from "../lib/contentful";
 import { Image } from "astro:assets";
 
-import logoImage from "../img/CV2B_logotype.svg";
+import logoImage from "../img/CV2B_logotype_white.svg";
 
 const entries = await contentfulClient.getEntries<DocPost>({
   content_type: "knowledgeBase",
@@ -20,6 +20,25 @@ const posts = entries.items.map((item) => {
     tags,
   };
 });
+
+
+const generalPosts = entries.items.filter((item) => {
+  const { category } = item.fields;
+  return category === "General";
+}).sort().map((item) => {
+  const { title, slug, category, description, content, tags } = item.fields;
+  return {
+    title,
+    slug,
+    category,
+    description,
+    content,
+    tags,
+  };
+});
+
+console.log(generalPosts)
+
 ---
 
 <html lang="en">
@@ -33,37 +52,81 @@ const posts = entries.items.map((item) => {
     />
   </head>
   <body class="flex flex-col items-center h-screen w-full">
-    <div class="max-w-7xl w-full">
-      <header
-        class="z-50 flex flex-wrap border-b border-black py-3 sm:flex-nowrap sm:justify-start sm:py-0 h-10"
+    <header
+    class="z-50 flex w-full flex-wrap border-b border-black sm:flex-nowrap sm:justify-start sm:py-0 bg-neutral text-neutral-content"
+  >
+  <nav
+        class="relative mx-auto w-full max-w-7xl px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 py-6"
+        aria-label="Global"
       >
-        <a class="flex-none text-xl font-semibold" href="/" aria-label="Brand">
-          <div class="flex space-x-4">
-            <Image
-              src={logoImage}
-              width={150}
-              height={50}
-              alt="Picture of the author"
-            />
-            <div class="badge badge-accent mt-1">Beta</div>
-          </div>
-        </a>
-      </header>
-      <div class="flex flex-grow">
+      <a class="flex-none text-xl font-semibold" href="/" aria-label="Brand">
+        <div class="flex space-x-4">
+          <Image
+            src={logoImage}
+            width={150}
+            height={50}
+            alt="Picture of the author"
+          />
+          <div class="badge badge-secondary mt-1">Documentation</div>
+        </div>
+      </a>
+    </nav>
+    
+  </header>
+    <div class="max-w-7xl w-full">
+      <div class="flex flex-grow h-[calc(100vh-72px)]">
         <!-- Sidebar -->
-        <div class="bg-white w-64 p-4 space-y-4">
-          <h1 class="font-bold text-xl">Navigation</h1>
+        <div class="bg-white w-64 p-4 space-y-4 border-r-2 pt-8">
           <nav>
-            <ul class="space-y-2">
+            <ul class="menu rounded-box">
+              <li class="font-semibold">
+                <a href="#">
+                  Welcome
+                </a>
+              </li>
               {
-                posts.map((post) => (
-                  <li>
+                generalPosts.map((post) => (
+                  <li class="text-gray-500">
                     <a href={`/doc/${post.slug}/`}>
                       <h2>{post.title}</h2>
                     </a>
                   </li>
                 ))
               }
+              <!-- <li class=" text-gray-500">
+                <a href="/doc/getting-started">
+                  What is CvToBlind?
+                </a>
+              </li>
+              <li class=" text-gray-500">
+                <a href="/doc/getting-started">
+                  <h2>Getting Started</h2>
+                </a>
+              </li>
+              <li class=" text-gray-500">
+                <a href="/doc/getting-started">
+                  <h2>Support</h2>
+                </a>
+              </li> -->
+              <!-- <li class="font-bold text-xl">
+                Templates
+              </li>
+              <li class="">
+                <a href="/doc/templates-overview">
+                  <h2>Overview</h2>
+                </a>
+              </li>
+              <li class="">
+                <a href="/doc/templates-overview">
+                  <h2>Adding templates</h2>
+                </a>
+              </li>
+              <li class="">
+                <a href="/doc/templates-overview">
+                  <h2>Creating templates</h2>
+                </a>
+              </li> -->
+              
             </ul>
           </nav>
         </div>

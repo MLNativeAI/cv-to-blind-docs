@@ -37,6 +37,11 @@ const templatePosts = entries.items.filter((item) => {
   return category === "Templates";
 }).sort((a, b) => a.fields.order - b.fields.order).map(mapToProps);
 
+const orgnaizationPosts = entries.items.filter((item) => {
+  const { category } = item.fields;
+  return category === "Organizations";
+}).sort((a, b) => a.fields.order - b.fields.order).map(mapToProps);
+
 ---
 
 <html lang="en">
@@ -97,6 +102,12 @@ const templatePosts = entries.items.filter((item) => {
                 </a>
               </li>
               <SidebarLink posts={templatePosts}               />
+              <li class="font-semibold">
+                <a href="#">
+                  Organizations
+                </a>
+              </li>
+              <SidebarLink posts={orgnaizationPosts}               />
               
             </ul>
           </nav>

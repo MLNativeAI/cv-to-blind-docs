@@ -17,7 +17,7 @@ const options = {
       [BLOCKS.HEADING_2]: (node: any, next: any) =>
       `<h2 class="text-2xl">${next(node.content)}</h2>`,
       [BLOCKS.PARAGRAPH]: (node: any, next: any) =>
-      `<p>${next(node.content)}</p>`,
+      `<p>${next(node.content).replace(/\n/g, '<br/>')}</p>`,
       [BLOCKS.EMBEDDED_ASSET]: (node: any, next: any) =>
       `<Image width="100" height="200" src="${node.data.target.fields.file.url}" alt="A description of my image." />`,
       [BLOCKS.LIST_ITEM]: (node: any, next: any) =>
@@ -33,6 +33,7 @@ const options = {
   const entries = await contentfulClient.getEntries<DocPost>({
     content_type: "knowledgeBase",
   });
+
 
   const pages = entries.items.map((item) => ({
     params: { slug: item.fields.slug },

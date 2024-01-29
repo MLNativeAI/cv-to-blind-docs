@@ -2,6 +2,7 @@
 import "../global.css";
 import { contentfulClient, type DocPost } from "../lib/contentful";
 import { Image } from "astro:assets";
+import SidebarLink from "../components/SidebarLink.astro";
 
 import logoImage from "../img/logo_cv2b.svg"
 
@@ -9,8 +10,8 @@ const entries = await contentfulClient.getEntries<DocPost>({
   content_type: "knowledgeBase",
 });
 
-const posts = entries.items.map((item) => {
-  const { title, slug, category, description, content, tags } = item.fields;
+const mapToProps = (entry: any) => {
+  const { title, slug, category, description, content, tags } = entry.fields;
   return {
     title,
     slug,
@@ -19,25 +20,17 @@ const posts = entries.items.map((item) => {
     content,
     tags,
   };
-});
-
+};
 
 const generalPosts = entries.items.filter((item) => {
   const { category } = item.fields;
   return category === "General";
-}).sort().map((item) => {
-  const { title, slug, category, description, content, tags } = item.fields;
-  return {
-    title,
-    slug,
-    category,
-    description,
-    content,
-    tags,
-  };
-});
+}).sort().map(mapToProps);
 
-// console.log(generalPosts)
+const templatePosts = entries.items.filter((item) => {
+  const { category } = item.fields;
+  return category === "Templates";
+}).sort().map(mapToProps);
 
 ---
 
@@ -84,48 +77,13 @@ const generalPosts = entries.items.filter((item) => {
                   Welcome
                 </a>
               </li>
-              {
-                generalPosts.map((post) => (
-                  <li class="text-gray-500">
-                    <a href={`/doc/${post.slug}/`}>
-                      <h2>{post.title}</h2>
-                    </a>
-                  </li>
-                ))
-              }
-              <!-- <li class=" text-gray-500">
-                <a href="/doc/getting-started">
-                  What is CvToBlind?
+              <SidebarLink posts={generalPosts}               />
+              <li class="font-semibold">
+                <a href="#">
+                  Templates
                 </a>
               </li>
-              <li class=" text-gray-500">
-                <a href="/doc/getting-started">
-                  <h2>Getting Started</h2>
-                </a>
-              </li>
-              <li class=" text-gray-500">
-                <a href="/doc/getting-started">
-                  <h2>Support</h2>
-                </a>
-              </li> -->
-              <!-- <li class="font-bold text-xl">
-                Templates
-              </li>
-              <li class="">
-                <a href="/doc/templates-overview">
-                  <h2>Overview</h2>
-                </a>
-              </li>
-              <li class="">
-                <a href="/doc/templates-overview">
-                  <h2>Adding templates</h2>
-                </a>
-              </li>
-              <li class="">
-                <a href="/doc/templates-overview">
-                  <h2>Creating templates</h2>
-                </a>
-              </li> -->
+              <SidebarLink posts={templatePosts}               />
               
             </ul>
           </nav>

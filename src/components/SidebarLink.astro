@@ -4,11 +4,9 @@ const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.split("/").filter((item) => item !== "")
 const docPath = currentPath[currentPath.length - 1]
 
-console.log(docPath)
-
 ---
 {
-    posts.map((post) => (
+    posts.map((post: { slug: string; title: unknown; }) => (
       <li class="text-gray-500">
         <a class={docPath === post.slug ? "active" : ""} href={`/doc/${post.slug}/`}>
           <h2>{post.title}</h2>

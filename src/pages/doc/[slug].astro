@@ -1,9 +1,9 @@
 ---
 import { contentfulClient } from "../../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import { BLOCKS, MARKS, V1_NODE_TYPES } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
-import RenderContent from "../../components/RenderContent.Astro";
+// import RenderContent from "../../components/RenderContent.Astro";
 import Layout from "../../layouts/Layout.astro";
 import type { DocPost } from "../../lib/contentful";
 
@@ -12,10 +12,18 @@ export async function getStaticPaths() {
 
 const options = {
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any, next: any) =>
-      `<p className="px-8">${next(node.content)}</p>`,
+      [BLOCKS.HEADING_2]: (node: any, next: any) =>
+      `<h2 class="text-2xl">${next(node.content)}</h2>`,
+      [BLOCKS.PARAGRAPH]: (node: any, next: any) =>
+      `<p>${next(node.content)}</p>`,
       [BLOCKS.EMBEDDED_ASSET]: (node: any, next: any) =>
-      `<Image width="100" height="200" src="${node.data.target.fields.file.url}" alt="A description of my image." />`
+      `<Image width="100" height="200" src="${node.data.target.fields.file.url}" alt="A description of my image." />`,
+      [BLOCKS.LIST_ITEM]: (node: any, next: any) =>
+      `<li>${next(node.content)}</li>`,
+      [BLOCKS.UL_LIST]: (node: any, next: any) =>
+      `<ul class="list-disc ml-6">${next(node.content)}</ul>`,
+      [INLINES.HYPERLINK]: (node: any, next: any) =>
+      `<a class="link text-primary" href="${node.data.uri}">${next(node.content)}</a>`,
   },
 };
 
@@ -31,8 +39,7 @@ const options = {
       slug: item.fields.slug,
       category: item.fields.category,
       description: item.fields.description,
-      content: item.fields.content,
-      // content: documentToHtmlString(item.fields.content, options),
+      content: documentToHtmlString(item.fields.content, options),
       tags: item.fields.tags,
     },
   }));
@@ -40,15 +47,13 @@ const options = {
 }
 
 
-const { title, content } = Astro.props;
+const { title, content, category } = Astro.props;
 
 ---
 <Layout>
   <div class="space-y-4">
-    <h1 class="text-2xl">{title}</h1>
-    <article class="space-y-8">
-      <RenderContent content={content} />
-    </article>
+    <span class="text-sm text-gray-500">{category}</span>
+    <article class="space-y-8" set:html={content}/>
 
   </div>
   

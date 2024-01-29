@@ -7,6 +7,7 @@ export interface DocPost {
     slug: EntryFieldTypes.Text;
     category: EntryFieldTypes.Text;
     description: EntryFieldTypes.Text;
+    order: EntryFieldTypes.Number;
     content: EntryFieldTypes.RichText;
     tags: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
   };

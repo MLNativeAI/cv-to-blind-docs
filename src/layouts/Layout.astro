@@ -11,26 +11,31 @@ const entries = await contentfulClient.getEntries<DocPost>({
 });
 
 const mapToProps = (entry: any) => {
-  const { title, slug, category, description, content, tags } = entry.fields;
+  const { title, slug, category, order, description, content, tags } = entry.fields;
   return {
     title,
     slug,
     category,
+    order,
     description,
     content,
     tags,
   };
 };
 
-const generalPosts = entries.items.filter((item) => {
-  const { category } = item.fields;
-  return category === "General";
-}).sort().map(mapToProps);
+const generalPosts = entries.items
+  .filter((item) => {
+    const { category } = item.fields;
+    return category === "General";
+  })
+  .sort((a, b) => a.fields.order - b.fields.order)
+  .map(mapToProps);
+
 
 const templatePosts = entries.items.filter((item) => {
   const { category } = item.fields;
   return category === "Templates";
-}).sort().map(mapToProps);
+}).sort((a, b) => a.fields.order - b.fields.order).map(mapToProps);
 
 ---
 
@@ -60,18 +65,26 @@ const templatePosts = entries.items.filter((item) => {
             height={50}
             alt="Picture of the author"
           />
-          <!-- <div class="badge badge-secondary mt-1">Documentation</div> -->
+          <div class="badge">Documentation</div>
         </div>
       </a>
+      <div class="">
+        <a href="https://app.cvtoblind.com" class="btn btn-ghost btn-sm text-gray-500">
+          Go to App
+        </a>
+        <a href="hello@cvtoblind.com" class="btn btn-ghost btn-sm text-gray-500">
+          Contact Us
+        </a>
+      </div>
     </nav>
     
   </header>
     <div class="max-w-7xl w-full">
-      <div class="flex flex-grow h-[calc(100vh-72px)]">
+      <div class="flex flex-grow h-[calc(100vh-81px)]">
         <!-- Sidebar -->
         <div class="bg-white w-64 p-4 space-y-4 border-r-2 pt-8">
           <nav>
-            <ul class="menu rounded-box">
+            <ul class="menu rounded-box space-y-1">
               <li class="font-semibold">
                 <a href="#">
                   Welcome

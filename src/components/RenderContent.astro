@@ -1,0 +1,22 @@
+---
+
+const { content } = Astro.props;
+---
+{content.content.map((item) => {
+
+  if(item.nodeType == "paragraph"){
+    return item.content.map((nestedItem) => {
+      console.log(nestedItem)
+      if(nestedItem.nodeType == "text"){
+        return (
+          <p>{nestedItem.value}</p>
+        )
+      }
+      if(nestedItem.nodeType == "embedded-asset-block"){
+        return (
+          <img src={nestedItem.data.target.fields.file.url} alt="" />
+        )
+      }
+    })
+  }
+})}

@@ -3,7 +3,7 @@ import "../global.css";
 import { contentfulClient, type DocPost } from "../lib/contentful";
 import { Image } from "astro:assets";
 
-import logoImage from "../img/CV2B_logotype_white.svg";
+import logoImage from "../img/logo_cv2b.svg"
 
 const entries = await contentfulClient.getEntries<DocPost>({
   content_type: "knowledgeBase",
@@ -37,7 +37,7 @@ const generalPosts = entries.items.filter((item) => {
   };
 });
 
-console.log(generalPosts)
+// console.log(generalPosts)
 
 ---
 
@@ -53,7 +53,7 @@ console.log(generalPosts)
   </head>
   <body class="flex flex-col items-center h-screen w-full">
     <header
-    class="z-50 flex w-full flex-wrap border-b border-black sm:flex-nowrap sm:justify-start sm:py-0 bg-neutral text-neutral-content"
+    class="z-50 flex w-full flex-wrap border-b  sm:flex-nowrap sm:justify-start sm:py-0 text-neutral-content"
   >
   <nav
         class="relative mx-auto w-full max-w-7xl px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 py-6"
@@ -67,7 +67,7 @@ console.log(generalPosts)
             height={50}
             alt="Picture of the author"
           />
-          <div class="badge badge-secondary mt-1">Documentation</div>
+          <!-- <div class="badge badge-secondary mt-1">Documentation</div> -->
         </div>
       </a>
     </nav>

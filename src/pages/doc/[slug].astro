@@ -12,6 +12,8 @@ export async function getStaticPaths() {
 
 const options = {
   renderNode: {
+      [BLOCKS.HEADING_4]: (node: any, next: any) =>
+      `<h4 class="text-lg">${next(node.content)}</h2>`,
       [BLOCKS.HEADING_3]: (node: any, next: any) =>
       `<h3 class="text-xl">${next(node.content)}</h2>`,
       [BLOCKS.HEADING_2]: (node: any, next: any) =>

@@ -1,0 +1,112 @@
+{
+  "email": "andrew.converter@cvtoblind.com",
+  "hobby": ["Basketball fan", "Sport statistics", "Geopolitics"],
+  "github": "",
+  "mobile": "+48 123 456 789",
+  "skills": [
+    "Natural Language Processing",
+    "Data Analytics",
+    "Model Development",
+    "Machine Learning Integration",
+    "Deep Learning",
+    "Machine Learning"
+  ],
+  "summary": "Machine Learning Engineer with 10 years of experience. A track record in innovative research and applying data to improve user experience. Proficient in ML and DevOps, known for pioneering solutions and implementing applications that broaden customer engagement.",
+  "linkedin": "provide HTTP link",
+  "education": [
+    {
+      "major": "Computer Science",
+      "start": "2013",
+      "degree": "Bachelor of Science",
+      "finish": "2017",
+      "faculty": "",
+      "university": "MIT - Cambridge"
+    }
+  ],
+  "languages": [
+    { "level": "Native", "language": "Polish" },
+    { "level": "C1", "language": "English" },
+    { "level": "B2", "language": "German" }
+  ],
+  "last_name": "Converter",
+  "main_role": "Machine Learning Engineer",
+  "experience": [
+    {
+      "to": "Current",
+      "from": "01-2022",
+      "roles": ["Senior Machine Learning Engineer"],
+      "company": "ML Wizards",
+      "technologies": [
+        "MLnative",
+        "Azure",
+        "Java",
+        "Python",
+        "LLMs",
+        "Hugging Face"
+      ],
+      "responsibilities": [
+        "Optimized machine learning models by implementing advanced algorithms and feature selection techniques.",
+        "Developed custom machine learning algorithms for specific industry needs, resulting in improved performance and efficiency.",
+        "Enhanced data quality with thorough preprocessing, cleaning, and transformation tasks, leading to more accurate model predictions.",
+        "Collaborated with cross-functional teams to integrate machine learning solutions into existing software systems, streamlining processes and boosting productivity."
+      ]
+    },
+    {
+      "to": "12-2021",
+      "from": "03-2018",
+      "roles": ["Machine Learning Developer"],
+      "company": "Number Freak Lab",
+      "technologies": [
+        "Github",
+        "Run.ai",
+        "AWS",
+        "Sagemaker",
+        "Python",
+        "Java"
+      ],
+      "responsibilities": [
+        "Enhanced machine learning model accuracy by developing and implementing advanced algorithms.",
+        "Optimized data processing pipelines for efficient handling of large datasets, resulting in reduced computational time.",
+        "Collaborated with cross-functional teams to develop innovative machine learning solutions, driving business growth.",
+        "Designed and deployed scalable machine learning models, improving product recommendations for customers."
+      ]
+    },
+    {
+      "to": "02-2018",
+      "from": "10-2014",
+      "roles": ["DevOps Engineer"],
+      "company": "Big Bang Deployments",
+      "technologies": ["CI/CD", "AWS", "Docker", "Java"],
+      "responsibilities": [
+        "Improved code deployment efficiency by automating processes with CI/CD pipelines.",
+        "Reduced system downtime for critical applications by implementing robust monitoring and alerting tools.",
+        "Enhanced application performance by optimizing infrastructure configurations based on usage patterns.",
+        "Collaborated with development teams to streamline software releases, resulting in faster time to market."
+      ]
+    }
+  ],
+  "first_name": "Andrew",
+  "other_urls": [],
+  "technologies": [
+    "LLMs",
+    "CI/CD",
+    "Run.ai",
+    "Docker",
+    "MLnative",
+    "Python",
+    "AWS",
+    "Azure",
+    "Github",
+    "Hugging Face",
+    "Sagemaker",
+    "Java"
+  ],
+  "certifications": [
+    { "date": "2019", "certificate": "LLM Fine Tuning Methods Training" },
+    { "date": "2018", "certificate": "Infrastructure Advanced Course" },
+    { "date": "2017", "certificate": "Cluster management" }
+  ],
+  "physical_address": "",
+  "total_experience": "10 years",
+  "additional_information": ""
+}

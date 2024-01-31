@@ -21,7 +21,7 @@ const options = {
       [BLOCKS.PARAGRAPH]: (node: any, next: any) =>
       `<p>${next(node.content).replace(/\n/g, '<br/>')}</p>`,
       [BLOCKS.EMBEDDED_ASSET]: (node: any, next: any) =>
-      `<Image width="100" height="200" src="${node.data.target.fields.file.url}" alt="A description of my image." />`,
+      `<Image width="800" height="400" src="${node.data.target.fields.file.url}" alt="A description of my image." />`,
       [BLOCKS.LIST_ITEM]: (node: any, next: any) =>
       `<li>${next(node.content)}</li>`,
       [BLOCKS.UL_LIST]: (node: any, next: any) =>
